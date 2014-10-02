@@ -27,7 +27,7 @@ class ofApp : public ofBaseApp{
         ofxVideoBuffers buffer;
         ofImage pixs;
         unsigned char * pixels;
-    
+        
         bool record;
         bool playback;
 };

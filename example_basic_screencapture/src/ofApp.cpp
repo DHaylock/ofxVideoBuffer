@@ -2,36 +2,41 @@
 //--------------------------------------------------------------
 void ofApp::setup()
 {
+    ofSetFrameRate(60);
     ofSetWindowShape(WIDTH*2, HEIGHT+20);
+
     fbo.allocate(WIDTH,HEIGHT,GL_RGBA);
     pixels = new unsigned char [WIDTH*HEIGHT*4];
     
     fbo.begin();
-        ofClear(0, 0, 0);
+    ofClear(0, 0, 0);
     fbo.end();
+    
     record = false;
     playback = false;
 }
 //--------------------------------------------------------------
 void ofApp::update()
 {
-
     fbo.begin();
     ofClear(0);
     ofSetColor(255, 255, 255);
     ofCircle(mouseX, mouseY, 10);
-    glReadPixels(0, 0, WIDTH, HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
     fbo.end();
+    fbo.readToPixels(pixs);
     
     if (record)
     {
-        pixs.setFromPixels(pixels, WIDTH, HEIGHT, OF_IMAGE_COLOR_ALPHA);
         buffer.getNewImage(pixs);
     }
     else  {   }
 
+    if (buffer.isFinished())
+    {
+        playback = false;
+    }
     
-    // Update the buffer progressors
+    // Update the buffer
     if (!buffer.isEmpty())
     {
         buffer.update();
@@ -40,26 +45,32 @@ void ofApp::update()
 //--------------------------------------------------------------
 void ofApp::draw()
 {
-    ofBackground(ofColor::gray);
+    ofBackground(50);
+    
     ofSetColor(255);
     fbo.draw(0,0);
-    // Update the buffer progressors
+    
+    // Draw the Buffer
     if (!buffer.isEmpty())
     {
         buffer.draw(WIDTH, 0, WIDTH, HEIGHT);
     }
+    
     if(record)
     {
         ofSetColor(255, 0, 0);
-        ofCircle(10, 10, 3);
-        ofDrawBitmapStringHighlight("Recorded Frames: " +ofToString(buffer.getNumberOfFrames()), 10,245);
+        ofCircle(10, 12, 5);
     }
+    
     if (playback)
     {
         ofSetColor(0, 255, 0);
-        ofCircle(WIDTH+10, 10, 3);
-        ofDrawBitmapStringHighlight("Current Frame Number: "+ofToString(buffer.getCurrentFrameNumber()), WIDTH+10,245);
+        ofCircle(WIDTH+10, 12, 5);
     }
+    
+    // Info
+    ofDrawBitmapStringHighlight("Recorded Frames: " +ofToString(buffer.getNumberOfFrames()), 10,250);
+    ofDrawBitmapStringHighlight("Current Frame Number: "+ofToString(buffer.getCurrentFrameNumber()), WIDTH+10,250);
 }
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key)
@@ -69,12 +80,18 @@ void ofApp::keyPressed(int key)
             record = !record;
             break;
         case 'p':
-            playback = !playback;
+            playback = true;
             buffer.reset();
             buffer.start();
             break;
         case 'c':
             buffer.clear();
+            break;
+        case 'f':
+            buffer.setFade(false);
+            break;
+        case 'F':
+            buffer.setFade(true);
             break;
         default:
             break;
