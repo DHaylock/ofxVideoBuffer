@@ -30,7 +30,7 @@ void ofxVideoBuffers::getNewImage(ofTexture tex)
 //--------------------------------------------------------------
 void ofxVideoBuffers::getNewImage(ofPixels pix)
 {
-//    buffer.push_back(img);
+    buffer.push_back(pix);
 }
 //--------------------------------------------------------------
 void ofxVideoBuffers::update()
@@ -190,11 +190,29 @@ bool ofxVideoBuffers::isPlaying()
     return stillPlaying;
 }
 //--------------------------------------------------------------
+bool ofxVideoBuffers::isEmpty()
+{
+    
+    
+}
+//--------------------------------------------------------------
 int ofxVideoBuffers::getNumberOfFrames()
 {
     if (!buffer.empty())
     {
         return buffer.size();
+    }
+    else
+    {
+        return 0;
+    }
+}
+//--------------------------------------------------------------
+int ofxVideoBuffers::getCurrentFrameNumber()
+{
+    if (!buffer.empty())
+    {
+        return progress;
     }
     else
     {

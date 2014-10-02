@@ -10,6 +10,8 @@
 class ofxVideoBuffers {
     
     public:
+        ofxVideoBuffers();
+        ~ofxVideoBuffers();
         void update();
         void drawFullscreen();
         void draw(int x,int y,int width,int height);
@@ -26,11 +28,13 @@ class ofxVideoBuffers {
         bool isFinished();
         bool isPlaying();
         bool isNearlyFinished();
-        
+        bool isEmpty();
         void reset();
         void start();
         void stop();
         void clear();
+        int getNumberOfFrames();
+        int getCurrentFrameNumber();
     
     private:
         int progress;
