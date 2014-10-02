@@ -24,6 +24,8 @@ class ofxVideoBuffers {
         vector<ofImage> buffer;
     
         void setFade(bool fade);
+        void setFadeAmount(int howManyFramesToFade);
+    
         bool isFinished();
         bool isPlaying();
         bool isNearlyFinished();
@@ -39,8 +41,8 @@ class ofxVideoBuffers {
     
     private:
         bool canFade;
+        int fadeAmount;
         int progress;
-        int drawPathCounter;
         bool stillPlaying;
         bool canStartLoop;
         bool hasFinishedPlaying;

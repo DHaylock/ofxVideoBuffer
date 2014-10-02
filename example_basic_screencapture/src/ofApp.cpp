@@ -3,10 +3,9 @@
 void ofApp::setup()
 {
     ofSetFrameRate(60);
-    ofSetWindowShape(WIDTH*2, HEIGHT+20);
+    ofSetWindowShape(WIDTH*2, HEIGHT+40);
 
     fbo.allocate(WIDTH,HEIGHT,GL_RGBA);
-    pixels = new unsigned char [WIDTH*HEIGHT*4];
     
     fbo.begin();
     ofClear(0, 0, 0);
@@ -18,6 +17,9 @@ void ofApp::setup()
 //--------------------------------------------------------------
 void ofApp::update()
 {
+    ofSetWindowTitle("ofxVideoBuffer Basic Example FPS: " +ofToString((int)(ofGetFrameRate())));
+    
+    // Frame buffer to grab images could use ofTexture to grab screen data will implement later
     fbo.begin();
     ofClear(0);
     ofSetColor(255, 255, 255);

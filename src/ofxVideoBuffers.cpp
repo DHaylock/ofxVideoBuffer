@@ -12,6 +12,7 @@ ofxVideoBuffers::ofxVideoBuffers()
     canStartLoop = false;
     hasFinishedPlaying = false;
     canFade = false;
+    fadeAmount = 10;
 }
 //--------------------------------------------------------------
 ofxVideoBuffers::~ofxVideoBuffers()
@@ -50,7 +51,6 @@ void ofxVideoBuffers::update()
         else  {   }
     }
     else  {   }
-    
 }
 //--------------------------------------------------------------
 void ofxVideoBuffers::draw(int x,int y,int width,int height)
@@ -62,17 +62,17 @@ void ofxVideoBuffers::draw(int x,int y,int width,int height)
         {
             if (canFade)
             {
-                if (progress <= 30)
+                if (progress <= fadeAmount)
                 {
-                    ofSetColor(255,ofMap(progress, 0, 30, 0, 255));
+                    ofSetColor(255,ofMap(progress, 0, fadeAmount, 0, 255));
                 }
-                else if (progress >= 30 && progress <= buffer.size()-30)
+                else if (progress >= fadeAmount && progress <= buffer.size()-fadeAmount)
                 {
                     ofSetColor(255,255);
                 }
-                else if (progress >= buffer.size()-30)
+                else if (progress >= buffer.size()-fadeAmount)
                 {
-                    ofSetColor(255,ofMap(progress, buffer.size()-30, buffer.size()-1, 255, 0));
+                    ofSetColor(255,ofMap(progress, buffer.size()-fadeAmount, buffer.size()-1, 255, 0));
                 }
             }
             else
@@ -93,21 +93,21 @@ void ofxVideoBuffers::drawFullscreen()
     ofPushStyle();
     if (canStartLoop == true)
     {
-        if (!buffer.empty() && buffer.size() >= 30)
+        if (!buffer.empty() && buffer.size() >= fadeAmount)
         {
             if (canFade)
             {
-                if (progress <= 30)
+                if (progress <= fadeAmount)
                 {
-                    ofSetColor(255,ofMap(progress, 0, 30, 0, 255));
+                    ofSetColor(255,ofMap(progress, 0, fadeAmount, 0, 255));
                 }
-                else if (progress >= 30 && progress <= buffer.size()-30)
+                else if (progress >= fadeAmount && progress <= buffer.size()-fadeAmount)
                 {
                     ofSetColor(255,255);
                 }
-                else if (progress >= buffer.size()-30)
+                else if (progress >= buffer.size()-fadeAmount)
                 {
-                    ofSetColor(255,ofMap(progress, buffer.size()-30, buffer.size()-1, 255, 0));
+                    ofSetColor(255,ofMap(progress, buffer.size()-fadeAmount, buffer.size()-1, 255, 0));
                 }
             }
             else
@@ -129,17 +129,24 @@ void ofxVideoBuffers::drawMini(int x, int y)
     ofFill();
     if (!buffer.empty())
     {
-        if (progress <= 60)
+        if (canFade)
         {
-            ofSetColor(255,ofMap(progress, 0, 60, 0, 255));
+            if (progress <= fadeAmount)
+            {
+                ofSetColor(255,ofMap(progress, 0, fadeAmount, 0, 255));
+            }
+            else if (progress >= fadeAmount && progress <= buffer.size()-fadeAmount)
+            {
+                ofSetColor(255,255);
+            }
+            else if (progress >= buffer.size()-30)
+            {
+                ofSetColor(255,ofMap(progress, buffer.size()-fadeAmount, buffer.size()-1, 255, 0));
+            }
         }
-        else if (progress >= 60 && progress <= buffer.size()-30)
+        else
         {
-            ofSetColor(255,255);
-        }
-        else if (progress >= buffer.size()-30)
-        {
-            ofSetColor(255,ofMap(progress, buffer.size()-30, buffer.size()-1, 255, 0));
+            ofSetColor(255, 255, 255);
         }
         buffer[progress].draw(x, y,320/4,240/4);
     }
@@ -149,7 +156,6 @@ void ofxVideoBuffers::drawMini(int x, int y)
     ofNoFill();
     ofRect(x, y, 320/4,240/4);
     ofPopStyle();
-    
 }
 //--------------------------------------------------------------
 void ofxVideoBuffers::start()
@@ -204,6 +210,11 @@ bool ofxVideoBuffers::isPlaying()
 void ofxVideoBuffers::setFade(bool fade)
 {
     canFade = fade;
+}
+//--------------------------------------------------------------
+void ofxVideoBuffers::setFadeAmount(int howManyFramesToFade)
+{
+    fadeAmount = howManyFramesToFade;
 }
 //--------------------------------------------------------------
 bool ofxVideoBuffers::isEmpty()
