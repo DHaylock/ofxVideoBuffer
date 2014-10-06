@@ -4,7 +4,7 @@
 void ofApp::setup()
 {
     ofSetFrameRate(60);
-    ofSetWindowShape(WIDTH*2, HEIGHT+40);
+    ofSetWindowShape(WIDTH*3, HEIGHT+40);
     
     // Standard Video Grabber Stuff
 	videoGrabber.setDesiredFrameRate(60);
@@ -18,7 +18,7 @@ void ofApp::update()
 {
     ofSetWindowTitle("ofxVideoBuffer Basic Video Grabber FPS: " +ofToString((int)(ofGetFrameRate())));
     
-    if (buffers.size() >= 5)
+    if (buffers.size() >= 8)
     {
         buffers.pop_back();
     }
@@ -36,6 +36,7 @@ void ofApp::update()
         buffers.push_front(buffer);
         // Clear the single buffer object
         buffer.clear();
+        buffers[0].start();
     }
     else  {   }
     // Keep the Buffers looping
@@ -67,17 +68,23 @@ void ofApp::draw()
     ofSetColor(255);
     videoGrabber.draw(0,0);
     
-    ofEnableBlendMode(OF_BLENDMODE_SCREEN);
+
     // Draw the Buffer
     if (!buffers.empty())
     {
         for(int i = 0; i < buffers.size(); i++)
         {
-            buffers[i].draw(WIDTH, 0, WIDTH, HEIGHT);
+            if (i <= 3)
+            {
+                buffers[i].draw(WIDTH+(i*WIDTH/2), 0, WIDTH/2, HEIGHT/2);
+            }
+            else if(i >= 4)
+            {
+                buffers[i].draw(WIDTH+((i-4)*WIDTH/2), HEIGHT/2, WIDTH/2,HEIGHT/2);
+            }
         }
     }
-    ofDisableBlendMode();
-    
+
     if(record)
     {
         ofSetColor(255, 0, 0);
@@ -91,7 +98,7 @@ void ofApp::draw()
     }
     
     // Info
-    ofDrawBitmapStringHighlight("Number of Buffers: " +ofToString(buffers.size()), 10,250);
+    ofDrawBitmapStringHighlight("Live Image & Number of Buffers: " +ofToString(buffers.size()), 5,255);
 }
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key)
@@ -115,9 +122,12 @@ void ofApp::keyPressed(int key)
         case 'c':
             if (!buffers.empty())
             {
-                for(int i = 0; i < buffers.size(); i++)
+                if (buffers.size() >=8)
                 {
-                    buffers[i].clear();
+                    for(int i = 0; i < buffers.size(); i++)
+                    {
+        
+                    }
                 }
             }
             break;
