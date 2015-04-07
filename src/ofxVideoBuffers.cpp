@@ -17,7 +17,7 @@ ofxVideoBuffers::ofxVideoBuffers()
 //--------------------------------------------------------------
 ofxVideoBuffers::~ofxVideoBuffers()
 {
-    
+
 }
 //--------------------------------------------------------------
 void ofxVideoBuffers::getNewImage(ofImage img)
@@ -29,9 +29,16 @@ void ofxVideoBuffers::getNewImage(ofPixels pix)
 {
     buffer.push_back(pix);
 }
+
+void ofxVideoBuffers::getNewImage(ofPixels pix, ofImageType type)
+{
+    pix.setImageType(type);
+    buffer.push_back(pix);
+}
 //--------------------------------------------------------------
 void ofxVideoBuffers::update()
 {
+    //cout<<"progress"<<progress<<endl;
     if(canStartLoop == true)
     {
         if (!isFinished())
@@ -42,10 +49,11 @@ void ofxVideoBuffers::update()
                 {
                     progress++;
                 }
+
             }
             if (progress >= buffer.size()-30)
             {
-                
+
             }
         }
         else  {   }
@@ -150,7 +158,7 @@ void ofxVideoBuffers::drawMini(int x, int y)
         }
         buffer[progress].draw(x, y,320/4,240/4);
     }
-    
+
     ofDrawBitmapStringHighlight(ofToString(progress), x, y);
     ofSetColor(0, 0, 0);
     ofNoFill();
@@ -219,8 +227,8 @@ void ofxVideoBuffers::setFadeAmount(int howManyFramesToFade)
 //--------------------------------------------------------------
 bool ofxVideoBuffers::isEmpty()
 {
-    
-    
+
+
 }
 //--------------------------------------------------------------
 int ofxVideoBuffers::getNumberOfFrames()
