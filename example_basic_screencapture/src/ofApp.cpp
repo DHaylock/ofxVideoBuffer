@@ -13,17 +13,24 @@ void ofApp::setup()
     
     record = false;
     playback = false;
+    isClicked = false;
 }
 //--------------------------------------------------------------
 void ofApp::update()
 {
     ofSetWindowTitle("ofxVideoBuffer Basic Example FPS: " +ofToString((int)(ofGetFrameRate())));
-    
+    float hue = fmodf(ofGetElapsedTimef()*100,255);
+    ofColor c = ofColor::fromHsb(hue, 255, 255);
     // Frame buffer to grab images could use ofTexture to grab screen data will implement later
     fbo.begin();
     ofClear(0);
-    ofSetColor(255, 255, 255);
+    
+    
+    ofSetColor(c);
+   
+    
     ofCircle(mouseX, mouseY, 10);
+    
     fbo.end();
     fbo.readToPixels(pixs);
     
@@ -117,12 +124,12 @@ void ofApp::mouseDragged(int x, int y, int button)
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button)
 {
-
+    isClicked = true;
 }
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button)
 {
-
+    isClicked = false;
 }
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h)

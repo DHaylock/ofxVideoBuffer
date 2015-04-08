@@ -10,29 +10,29 @@
 	<string>example_basic_screencapture</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>833F6BE4-86C2-417D-BE23-8C24755166CB</key>
-		<string>ssh://wcode.org//data/git/wproj/ofxVideoBuffers/</string>
+		<key>3C8803855815C3FD2AB0723FFC41DD10537F231E</key>
+		<string>wcode.org:/data/git/wproj/ofxVideoBuffers/</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>example_basic_screencapture/example_basic_screencapture.xcodeproj/project.xcworkspace</string>
+	<string>example_basic_screencapture/example_basic_screencapture.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>833F6BE4-86C2-417D-BE23-8C24755166CB</key>
+		<key>3C8803855815C3FD2AB0723FFC41DD10537F231E</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://wcode.org//data/git/wproj/ofxVideoBuffers/</string>
+	<string>wcode.org:/data/git/wproj/ofxVideoBuffers/</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>833F6BE4-86C2-417D-BE23-8C24755166CB</string>
+	<string>3C8803855815C3FD2AB0723FFC41DD10537F231E</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>833F6BE4-86C2-417D-BE23-8C24755166CB</string>
+			<string>3C8803855815C3FD2AB0723FFC41DD10537F231E</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ofxVideoBuffers</string>
 		</dict>
