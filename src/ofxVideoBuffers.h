@@ -20,7 +20,7 @@ class ofxVideoBuffers {
 
         void getNewImage(ofImage img);
         void getNewImage(ofPixels pix);
-        void getNewImage(ofPixels pix, ofImageType type);
+        void getNewImage(ofPixels pix, ofImageType type = OF_IMAGE_COLOR);
 
         vector<ofImage> buffer;
 
